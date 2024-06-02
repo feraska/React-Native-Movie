@@ -1,0 +1,34 @@
+{
+  "expo": {
+    "name": "react-native-TypeScript-blank",
+    "slug": "react-native-TypeScript-blank",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.feras94.reactnativeTypeScriptblank"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.feras94.reactnativeTypeScriptblank"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "1fff32ac-d880-44b5-8ab8-25a8d67d2b4a"
+      }
+    }
+  }
+}
