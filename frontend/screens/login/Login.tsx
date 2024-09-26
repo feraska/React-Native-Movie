@@ -22,11 +22,14 @@ const Login = ({navigation}) => {
         "password":""
     })
     const {post,message,loading} = usePost(api.loginMainServer)
+    //console.log(state.user)
     const nav = async() => {
       try {
-      const item = await AsyncStorage.setItem("access_token",JSON.stringify(message))
+     //const item = await AsyncStorage.setItem("access_token",state.user)
+      if(state.login === 1)
       //if(item!)
       navigation.navigate("home")
+      return
       //navigation.navigate("home")
       //if(item!)
       
@@ -35,13 +38,22 @@ const Login = ({navigation}) => {
     }
     }
     useEffect(()=> {
-      if(message) {
+      console.log(state.user)
+      if(state.user?._id) {
+        
         nav()
         
       }
-    },[message])
+    },[state.user?._id])
+    
     useGlobal()
-  
+    useEffect(()=> {
+      console.log(state.login)
+      if(message) {
+        navigation.navigate("home")
+      }
+      console.log(message)
+    },[message])
      const handleChange = (value:string,name:string) => {
         setUser({...user,[name]:value})
         
@@ -59,18 +71,22 @@ const Login = ({navigation}) => {
          
     }
    
-    useEffect(()=>{
-     getToken().then((item)=> {
-      if(item)
-       navigation.navigate("home")
+    // useEffect(()=>{
+    //  getToken().then((item)=> {
+    //   console.log(item)
+    //   if(state.login === 1)
+    //    navigation.navigate("home")
   
-     })
+    //  })
    
     
-    },[])
+    // },[])
     if(state.login === 2) {
       return <Loading/>
   }
+
+ 
+    
   
     return (
         <SafeAreaView style={styles.container}>

@@ -1,19 +1,24 @@
 import React ,{ useContext } from "react"
-import { AuthContext } from "../../context/AuthContext"
+import { actions, AuthContext } from "../../context/AuthContext"
 import { Pressable, StyleSheet, Text, View } from "react-native"
 import useGlobal from "../../hooks/useGloabal"
 import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons"
 import { useNavigation } from "@react-navigation/native"
 import AsyncStorage from "@react-native-async-storage/async-storage"
+import useDelete from "../../hooks/useDelete"
+import { api } from "../../enums/api"
 
 const Settings = ()=> {
-    const {state} = useContext(AuthContext)
+    const {state,dispatch} = useContext(AuthContext)
     const navigation = useNavigation()
-    
+    const {deletE} = useDelete(api.logoutMainServer)
     useGlobal()
     const logOut = async()=> {
-        await AsyncStorage.removeItem("access_token")
-        navigation.navigate("login")
+       
+            await deletE()
+            dispatch({type:actions.logout,payload:undefined})
+            navigation.navigate("login")
+        
     }
     return(
         <View style={styles.container}>

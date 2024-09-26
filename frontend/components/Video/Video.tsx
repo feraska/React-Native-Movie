@@ -172,7 +172,7 @@ import {Video,ResizeMode} from "expo-av"
   
             <TouchableOpacity
               onPress={() => {
-                console.log('Clicked Play Button');
+               // console.log('Clicked Play Button');
               }}
               activeOpacity={0.8}
               style={[styles.playButton, {backgroundColor: '#2B292B'}]}>

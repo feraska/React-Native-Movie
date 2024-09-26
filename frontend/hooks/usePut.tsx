@@ -1,4 +1,3 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios, { AxiosError } from "axios";
 import { useState } from "react";
 const usePut = (url:string) => {
@@ -8,29 +7,19 @@ const usePut = (url:string) => {
     const put = async(body={})=> {
         try {
             setLoading(true)
-           
-                const item = await AsyncStorage.getItem("access_token")
-                
-                // if(!JSON.parse(item!).access_token) {
-                //     throw new Error("no access token")
-                // }
-                const message = await axios.put(url,body,{
-                    headers:{
-                        Authorization:item
-                    }
-                    
-                })
-            
+            const message = await axios.put(url,body,{
+                withCredentials:true
+            })
             setMessage(message.data)
             setError(false)
             setLoading(false)
         } catch(err) {
-         
-            setMessage((err as AxiosError).response?.data.message)
+            if(err instanceof AxiosError) {
+            setMessage(err.response?.data)
             setError(true)
             setLoading(false)
-            throw new Error((err as AxiosError).response?.data.message)
-            
+            throw new Error(err.response?.data)
+            }
         }
         
     }

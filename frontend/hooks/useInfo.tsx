@@ -1,3 +1,4 @@
+"use client"
 import {  useEffect, useState } from "react"
 import { card } from "./useApi"
 import axios, { AxiosError } from "axios"
@@ -7,7 +8,8 @@ const useInfo = (url:string) => {
     const [data,setData] = useState<card>()
     const [error,setError] = useState("")
     const [loading,setloading] = useState(false)
-    useEffect(()=> {
+    const [first,setFirst] = useState(0)
+    useEffect(()=> { 
         const getData = async() => {
             try {
                 setloading(true)
@@ -19,14 +21,20 @@ const useInfo = (url:string) => {
                 setloading(false)
                 setData(res.data)
             } catch (err) {
-                setloading(false)
-                setError((err as Error).message)
-                throw new Error((err as AxiosError).response?.data.message)
+                if(err instanceof AxiosError) {
+                    setError(err.response?.data)
+                    setloading(false)
+                    throw new Error(err.response?.data)
+                    }
             }
         }
+        if(first === 0) {
+            setFirst(1)
+            return
+        }
         getData()
-       
-},[url])
+    
+},[url,first])
 return {
     data,loading,error
 }
