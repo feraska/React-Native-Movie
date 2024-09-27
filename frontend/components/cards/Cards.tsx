@@ -13,24 +13,24 @@ const Cards:React.FC<{url:string,genre?:boolean}> = ({url,genre}) => {
         get()
 
     },[])
-    const navigation =useNavigation()
+    // const navigation =useNavigation()
 
-    const handleOnClick=(movieData)=>{
-   navigation.navigate('VideoPlayer',{movieData})
-    }
-    const renderMovieCards = ({item, index}) => {
-      return (
-        <TouchableOpacity onPress={()=>handleOnClick(item)} >
-          <Image
-            resizeMode="center"
-            style={styles.movieImg}
-            source={{
-              uri: `https://image.tmdb.org/t/p/w500/${item.poster_path}`,
-            }}
-          />
-        </TouchableOpacity>
-      );
-    };
+  //   const handleOnClick=(movieData)=>{
+  //  navigation.navigate('VideoPlayer',{movieData})
+  //   }
+    // const renderMovieCards = ({item, index}) => {
+    //   return (
+    //     <TouchableOpacity onPress={()=>handleOnClick(item)} >
+    //       <Image
+    //         resizeMode="center"
+    //         style={styles.movieImg}
+    //         source={{
+    //           uri: `https://image.tmdb.org/t/p/w500/${item.poster_path}`,
+    //         }}
+    //       />
+    //     </TouchableOpacity>
+    //   );
+    // };
     return(
         < View style={styles.view}>
           {/* <ScrollView horizontal showsVerticalScrollIndicator={false} >
@@ -57,16 +57,16 @@ const styles = StyleSheet.create({
       flexDirection:"row",
       gap:15
     },
-    container: {
-        height: responsiveHeight(40),
-        gap: 15,
-        marginTop: 10,
-      },
-      movieImg: {
-        width: responsiveWidth(50),
-        height: '100%',
-        borderRadius: 10,
-      },
+    // container: {
+    //     height: responsiveHeight(40),
+    //     gap: 15,
+    //     marginTop: 10,
+    //   },
+    //   movieImg: {
+    //     width: responsiveWidth(50),
+    //     height: '100%',
+    //     borderRadius: 10,
+    //   },
     
    
   });

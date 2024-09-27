@@ -7,14 +7,14 @@ import {
     View,
     TouchableOpacity,
     Pressable,
-    AppRegistry,
+
   } from 'react-native';
 
   import React, {useContext, useRef, useState} from 'react';
   import {
     responsiveFontSize,
     responsiveHeight,
-    responsiveWidth,
+  
   } from 'react-native-responsive-dimensions';
   import Fontisto from 'react-native-vector-icons/Fontisto';
   import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -22,7 +22,6 @@ import {
   import Octicons from 'react-native-vector-icons/Octicons';
   import AntDesign from "react-native-vector-icons/AntDesign"
   import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons"
-import Orientation from 'react-native-orientation-locker';
 import { AuthContext } from '../../context/AuthContext';
 import usePut from '../../hooks/usePut';
 import { api } from '../../enums/api';
@@ -40,7 +39,6 @@ import {Video,ResizeMode} from "expo-av"
       backdrop_path,
       vote_count,
     } = route.params.movieData;
-    const video = useRef()
   
     const [isVideoVisible, setisVideoVisible] = useState(false);
     const {state,dispatch} = useContext(AuthContext)

@@ -1,10 +1,6 @@
 import * as React from 'react';
 import { useNavigation } from '@react-navigation/native'
 import { Image, ScrollView, StyleSheet, TouchableOpacity, View } from "react-native"
-import { responsiveWidth } from "react-native-responsive-dimensions"
-
-
-
 
 const CardItem = ({item}) => {
   const navigate =useNavigation()

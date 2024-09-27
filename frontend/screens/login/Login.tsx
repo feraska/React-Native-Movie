@@ -1,20 +1,20 @@
-import { Alert, NativeSyntheticEvent, Pressable, SafeAreaView, StyleSheet, Switch, Text, TextInput, TextInputChangeEventData, View } from "react-native"
+import { Pressable, SafeAreaView, StyleSheet, Text, TextInput, View } from "react-native"
 import useGlobal from "../../hooks/useGloabal"
 import { useContext, useEffect, useState } from "react"
-import { actions, AuthContext } from "../../context/AuthContext"
+import {  AuthContext } from "../../context/AuthContext"
 import { Link, useNavigation } from "@react-navigation/native"
 
-import AsyncStorage from "@react-native-async-storage/async-storage"
+
 
 import React from "react"
 import usePost from "../../hooks/usePost"
 import { api } from "../../enums/api"
-import Home from "../home/Home"
+
 import Loading from "../../components/loading/Loading"
-import { getToken } from "../home/utils/getToken"
-const Login = ({navigation}) => {
+
+const Login = () => {
     useGlobal()
-    const navigate = useNavigation()
+    const navigation = useNavigation()
     const {state,dispatch} = useContext(AuthContext)
     
     const [user,setUser] = useState({
@@ -46,16 +46,7 @@ const Login = ({navigation}) => {
          
     }
    
-    // useEffect(()=>{
-    //  getToken().then((item)=> {
-    //   console.log(item)
-    //   if(state.login === 1)
-    //    navigation.navigate("home")
-  
-    //  })
-   
-    
-    // },[])
+
     if(state.login === 1) {
       navigation.navigate("home")
       return

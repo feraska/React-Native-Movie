@@ -2,7 +2,7 @@ import { useContext } from "react"
 import { AuthContext } from "../../context/AuthContext"
 import useGlobal from "../../hooks/useGloabal"
 import Loading from "../../components/loading/Loading"
-import { StyleSheet, Text, View } from "react-native"
+import { ScrollView, StyleSheet, Text, View } from "react-native"
 import ListItem from "../../components/listItem/ListItem"
 
 const List = ()=> {
@@ -13,15 +13,19 @@ const List = ()=> {
 }
 
     return(
+    <ScrollView style={styles.scrollContainer}>
        <View style={styles.list}>
-            <Text>My List</Text>
+        
+            <Text style={styles.text}>My List</Text>
             <View style={styles.ul}>
             {state.list?.map((id,i)=>(
                <ListItem id={id} key={i}/>
             ))}
             </View>
+           
         
         </View>
+        </ScrollView>
     )
 }
 const styles = StyleSheet.create({
@@ -31,9 +35,20 @@ const styles = StyleSheet.create({
         marginLeft:10,
         display: "flex",
         flexDirection: "column",
+        alignItems:"center",
         gap: 20,
     },
+    text: {
+        fontSize:32,
+        fontWeight:"bold"
+    },
+    scrollContainer: {
+        flex:1,
+        
+        
+    },
     ul: {
+        
         display: "flex",
         flexDirection:"row",
         flexWrap:"wrap",

@@ -1,14 +1,8 @@
-import React, { useContext, useEffect, useState } from "react"
-import { Button, ScrollView, StatusBar, StyleSheet, Text, View } from "react-native"
-import { AuthContext } from "../../context/AuthContext"
-import AsyncStorage from "@react-native-async-storage/async-storage"
-import { NavigationContainerEventMap, NavigationContainerProps, NavigationProp, RouteProp, StackNavigationState } from "@react-navigation/native"
+import React from "react"
+import {ScrollView, StatusBar, StyleSheet, View } from "react-native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import useGlobal from "../../hooks/useGloabal"
-import Loading from "../../components/loading/Loading"
-import MyBottom from "../../BottomStackNavigator"
-import { getToken } from "./utils/getToken"
-import Playing from "../../components/playing/Playing"
+
 import Cards from "../../components/cards/Cards"
 type RootStackParamList = {
     home: undefined;
@@ -19,9 +13,7 @@ type RootStackParamList = {
 const Home = ({navigation}) => {
    
     useGlobal()
-    const {state,dispatch} = useContext(AuthContext)
 
-//   
     return(
       
         <View style={styles.container}>
