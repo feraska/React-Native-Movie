@@ -1,7 +1,7 @@
 import { Alert, NativeSyntheticEvent, Pressable, SafeAreaView, StyleSheet, Switch, Text, TextInput, TextInputChangeEventData, View } from "react-native"
 import useGlobal from "../../hooks/useGloabal"
 import { useContext, useEffect, useState } from "react"
-import { AuthContext } from "../../context/AuthContext"
+import { actions, AuthContext } from "../../context/AuthContext"
 import { Link, useNavigation } from "@react-navigation/native"
 
 import AsyncStorage from "@react-native-async-storage/async-storage"
@@ -22,38 +22,10 @@ const Login = ({navigation}) => {
         "password":""
     })
     const {post,message,loading} = usePost(api.loginMainServer)
-    //console.log(state.user)
-    const nav = async() => {
-      try {
-     //const item = await AsyncStorage.setItem("access_token",state.user)
-      if(state.login === 1)
-      //if(item!)
-      navigation.navigate("home")
-      return
-      //navigation.navigate("home")
-      //if(item!)
-      
-    } catch(err) {
-
-    }
-    }
-    useEffect(()=> {
-      console.log(state.user)
-      if(state.user?._id) {
-        
-        nav()
-        
-      }
-    },[state.user?._id])
+    
     
     useGlobal()
-    useEffect(()=> {
-      console.log(state.login)
-      if(message) {
-        navigation.navigate("home")
-      }
-      console.log(message)
-    },[message])
+ 
      const handleChange = (value:string,name:string) => {
         setUser({...user,[name]:value})
         
@@ -61,7 +33,10 @@ const Login = ({navigation}) => {
      const handleLogin = async() => {
          try {
           
-             post(user)
+             await post(user)
+             //dispatch({type:actions.login})
+             
+             navigation.navigate("home")
              
             
          } catch(err) {
@@ -81,6 +56,11 @@ const Login = ({navigation}) => {
    
     
     // },[])
+    if(state.login === 1) {
+      navigation.navigate("home")
+      return
+    }
+    else
     if(state.login === 2) {
       return <Loading/>
   }
@@ -100,8 +80,8 @@ const Login = ({navigation}) => {
     
 
     <View style={styles.buttonView}>
-        <Pressable style={styles.button} onPress={handleLogin}>
-            <Text style={styles.buttonText}>LOGIN</Text>
+        <Pressable disabled={loading} style={styles.button} onPress={handleLogin}>
+            <Text  style={styles.buttonText}>LOGIN</Text>
         </Pressable>
     </View>
     <Link to={{ screen: 'register', params: { id: 'jane' } }} style={styles.link}>

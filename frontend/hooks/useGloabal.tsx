@@ -69,7 +69,7 @@ const useGlobal = () => {
         const getAll = async()=> {
             try {
              await get()
-             console.log(user)
+             
             } catch (err) {
              dispatch({type:actions.login,payload:0})
             }
