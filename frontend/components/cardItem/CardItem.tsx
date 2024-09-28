@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { useNavigation } from '@react-navigation/native'
-import { Image, ScrollView, StyleSheet, TouchableOpacity, View } from "react-native"
-
-const CardItem = ({item}) => {
+import { Image, StyleSheet, TouchableOpacity } from "react-native"
+import { card } from "../../interfaces/card"
+const CardItem:React.FC<{item:card}> = ({item}) => {
   const navigate =useNavigation()
-  const handleOnClick=(movieData)=>{
+  const handleOnClick=(movieData:card)=>{
    
     navigate.navigate('VideoPlayer',{movieData})
   }

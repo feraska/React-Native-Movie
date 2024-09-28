@@ -11,12 +11,14 @@ import usePost from "../../hooks/usePost"
 import { api } from "../../enums/api"
 
 import Loading from "../../components/loading/Loading"
+import { useAppSelector } from "../../redux/hooks"
 
 const Login = () => {
     useGlobal()
     const navigation = useNavigation()
-    const {state,dispatch} = useContext(AuthContext)
-    
+    //const {state,dispatch} = useContext(AuthContext)
+    const login = useAppSelector((state)=>state.user.login)
+    console.log(login)
     const [user,setUser] = useState({
         "email":"",
         "password":""
@@ -47,14 +49,14 @@ const Login = () => {
     }
    
 
-    if(state.login === 1) {
+    if(login === 1) {
       navigation.navigate("home")
       return
     }
-    else
-    if(state.login === 2) {
-      return <Loading/>
-  }
+    
+  //   if(login === 2) {
+  //     return <Loading/>
+  // }
 
  
     

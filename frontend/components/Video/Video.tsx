@@ -27,7 +27,15 @@ import usePut from '../../hooks/usePut';
 import { api } from '../../enums/api';
 import { actions } from '../../interfaces/auth';
 import {Video,ResizeMode} from "expo-av"
+import { card } from '../../interfaces/card';
+import { NavigationProp } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { addList, dislike, like, removeList } from '../../redux/slices/user';
   
+  interface movie {
+    movieData:card
+  }
   const VideoPlayer = ({route}) => {
    
     const {
@@ -39,9 +47,10 @@ import {Video,ResizeMode} from "expo-av"
       backdrop_path,
       vote_count,
     } = route.params.movieData;
-  
+    const dispatch = useAppDispatch()
+    const user = useAppSelector((state)=>state.user.user)
     const [isVideoVisible, setisVideoVisible] = useState(false);
-    const {state,dispatch} = useContext(AuthContext)
+   //const {state,dispatch} = useContext(AuthContext)
     const {put} = usePut(api.addToList)
     const {put:addToLikes} = usePut(api.like)
     const {put:removeFromLikes} = usePut(`${api.dislike}`)
@@ -49,7 +58,8 @@ import {Video,ResizeMode} from "expo-av"
     const removeMovie = async()=> {
       try {
           await remove({image:id})
-      dispatch({type:actions.remove_list,payload:id})
+      // dispatch({type:actions.remove_list,payload:id})
+      dispatch(removeList(id))
       } catch(err) {
           console.log(err)
       }
@@ -58,7 +68,8 @@ import {Video,ResizeMode} from "expo-av"
       try {
       await put({image:id})
       
-      dispatch({type:actions.add_list,payload:id})
+      //dispatch({type:actions.add_list,payload:id})
+      dispatch(addList(id))
       
       } catch(err) {
           console.log(err)
@@ -68,10 +79,12 @@ import {Video,ResizeMode} from "expo-av"
       try {
           if(action === actions.like) {
               await addToLikes({image:id})
-              dispatch({type:actions.like,payload:id})
+              // dispatch({type:actions.like,payload:id})
+              dispatch(like(id))
           } else {
               await removeFromLikes({image:id})
-              dispatch({type:actions.dislike,payload:id})
+              // dispatch({type:actions.dislike,payload:id})
+              dispatch(dislike(id))
           }
       } catch(err) {
           console.log(err)
@@ -195,7 +208,7 @@ import {Video,ResizeMode} from "expo-av"
             <View style={{display:"flex",flexDirection:"row",gap:10}}>
             
               {
-              !state.list.includes(id)? 
+              !user?.list.includes(id)? 
               <Pressable onPress={addHandler}>
               <AntDesign 
               name="plus"
@@ -217,7 +230,7 @@ import {Video,ResizeMode} from "expo-av"
              
 
              {
-             !state.likes.includes(id)?
+             !user?.likes.includes(id)?
              <Pressable onPress={()=>likeHandler("like")}>
               <SimpleLineIcons 
               name="like"

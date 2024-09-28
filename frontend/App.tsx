@@ -6,17 +6,20 @@ import {  AuthContext, AuthContextProvider } from "./context/AuthContext";
 import MyBottom from "./BottomStackNavigator";
 import { useContext, useEffect, useState } from "react";
 import MyStack from "./StackNavigator";
+import StoreProvider from "./StoreProvider";
 
 export default function App() {
   
   
   return (
     
-      <AuthContextProvider>
+      // <AuthContextProvider>
+      <StoreProvider>
           <MyStack/>
          
           <StatusBar style="light" />
-          </AuthContextProvider>
+          </StoreProvider>
+          // </AuthContextProvider>
   
   );
 }

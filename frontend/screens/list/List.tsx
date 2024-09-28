@@ -4,13 +4,16 @@ import useGlobal from "../../hooks/useGloabal"
 import Loading from "../../components/loading/Loading"
 import { ScrollView, StyleSheet, Text, View } from "react-native"
 import ListItem from "../../components/listItem/ListItem"
+import { useAppSelector } from "../../redux/hooks"
 
 const List = ()=> {
     const {state} = useContext(AuthContext)
+    const user = useAppSelector((state)=>state.user.user)
+    const login = useAppSelector((state)=>state.user.login)
    useGlobal()
-   if(state.login === 2) {
-    return<Loading/>
-}
+//    if(login === 2) {
+//     return<Loading/>
+// }
 
     return(
     <ScrollView style={styles.scrollContainer}>
@@ -18,7 +21,7 @@ const List = ()=> {
         
             <Text style={styles.text}>My List</Text>
             <View style={styles.ul}>
-            {state.list?.map((id,i)=>(
+            {user?.list?.map((id,i)=>(
                <ListItem id={id} key={i}/>
             ))}
             </View>

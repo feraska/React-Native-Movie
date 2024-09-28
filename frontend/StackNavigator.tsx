@@ -31,11 +31,11 @@ const StackContainer = () => {
      component={Login}
      options={{headerBackVisible:false,headerStyle:{backgroundColor:"#000"},headerTitleStyle:{color:"#fff"}}}
    />
-   <Stack.Screen
+   {/* <Stack.Screen
      name="loading"
      component={Loading}
      options={{headerBackVisible:false,headerStyle:{backgroundColor:"#000"},headerTitleStyle:{color:"#fff"}}}
-   />
+   /> */}
   <Stack.Screen
    name="register"
    component={Register}
