@@ -6,6 +6,7 @@ import { api } from "../../enums/api"
 import { useState } from "react"
 
 const Register = () => {
+    const [color,setColor] = useState("red")
     const {post,message,loading} = usePost(api.registerMainServer)
     const [user,setUser] = useState({
         "email":"",
@@ -13,6 +14,12 @@ const Register = () => {
         "lastName":"",
         "firstName":""
     })
+    const onFocus = () => {
+      setColor("green")
+    }
+    const onBlur = () => {
+      setColor("red")
+    }
     useGlobal()
     const handleChange = (value:string,name:string) => {
         setUser({...user,[name]:value})
@@ -30,27 +37,31 @@ const Register = () => {
         }
         
    }
+   const s = {
+    borderColor:color
+   }
     return(
         <SafeAreaView style={styles.container}>
             
         <View style={styles.inputView}>
-        <TextInput style={styles.input} onChangeText={(value)=>handleChange(value,"email")} placeholder='EMAIL OR USERNAME'  autoCorrect={false} placeholderTextColor="#fff" 
+        <TextInput onFocus={onFocus} onBlur={onBlur} style={[styles.input]} onChangeText={(value)=>handleChange(value,"email")} placeholder='EMAIL OR USERNAME'  autoCorrect={false} placeholderTextColor="#fff" 
     autoCapitalize='none' />
         <TextInput style={styles.input} onChangeText={(value)=>handleChange(value,"password")} placeholder='PASSWORD' secureTextEntry  autoCorrect={false} placeholderTextColor="#fff" 
     autoCapitalize='none'/>
       <TextInput style={styles.input} onChangeText={(value)=>handleChange(value,"firstName")} placeholder='firstName'  autoCorrect={false} placeholderTextColor="#fff" 
     autoCapitalize='none' />
-        <TextInput style={styles.input} onChangeText={(value)=>handleChange(value,"lastName")} placeholder='last name'  autoCorrect={false} placeholderTextColor="#fff" 
+        <TextInput  style={styles.input} onChangeText={(value)=>handleChange(value,"lastName")} placeholder='last name'  autoCorrect={false} placeholderTextColor="#fff" 
     autoCapitalize='none'/>
-    </View>
-    
-
-    <View style={styles.buttonView}>
+     <View style={styles.buttonView}>
         <Pressable style={styles.button} onPress={handleRegister}>
             <Text style={styles.buttonText}>REGISTER</Text>
         </Pressable>
     </View>
-    <Link to={{ screen: 'login', params: { id: 'jane' } }} style={styles.link}>
+    </View>
+    
+
+   
+    <Link to={{ screen: 'login' }} style={styles.link}>
       Login
     </Link>
     {loading&&<Text style={styles.loading}>loading...</Text>}
@@ -115,7 +126,7 @@ const styles = StyleSheet.create({
     }, 
     buttonView :{
       width :"100%",
-      paddingHorizontal : 50
+      
     },
     optionsText : {
       textAlign : "center",

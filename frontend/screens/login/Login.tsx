@@ -1,4 +1,4 @@
-import { Pressable, SafeAreaView, StyleSheet, Text, TextInput, View } from "react-native"
+import { Button, Pressable, SafeAreaView, StyleSheet, Text, TextInput, View } from "react-native"
 import useGlobal from "../../hooks/useGloabal"
 import { useContext, useEffect, useState } from "react"
 import {  AuthContext } from "../../context/AuthContext"
@@ -11,14 +11,15 @@ import usePost from "../../hooks/usePost"
 import { api } from "../../enums/api"
 
 import Loading from "../../components/loading/Loading"
-import { useAppSelector } from "../../redux/hooks"
+import { useAppDispatch, useAppSelector } from "../../redux/hooks"
+import { login } from "../../redux/slices/user"
 
 const Login = () => {
     useGlobal()
     const navigation = useNavigation()
     //const {state,dispatch} = useContext(AuthContext)
-    const login = useAppSelector((state)=>state.user.login)
-    console.log(login)
+    const signin = useAppSelector((state)=>state.user.login)
+    const dispatch = useAppDispatch()
     const [user,setUser] = useState({
         "email":"",
         "password":""
@@ -37,7 +38,7 @@ const Login = () => {
           
              await post(user)
              //dispatch({type:actions.login})
-             
+             dispatch(login(1))
              navigation.navigate("home")
              
             
@@ -49,14 +50,14 @@ const Login = () => {
     }
    
 
-    if(login === 1) {
+    if(signin === 1) {
       navigation.navigate("home")
       return
     }
     
-  //   if(login === 2) {
-  //     return <Loading/>
-  // }
+    if(signin === 2) {
+      return <Loading/>
+  }
 
  
     
@@ -69,15 +70,16 @@ const Login = () => {
     autoCapitalize='none' />
         <TextInput style={styles.input} onChangeText={(value)=>handleChange(value,"password")} placeholder='PASSWORD' secureTextEntry  autoCorrect={false} placeholderTextColor="#fff" 
     autoCapitalize='none'/>
-    </View>
-    
-
-    <View style={styles.buttonView}>
+     <View style={styles.buttonView}>
         <Pressable disabled={loading} style={styles.button} onPress={handleLogin}>
             <Text  style={styles.buttonText}>LOGIN</Text>
         </Pressable>
     </View>
-    <Link to={{ screen: 'register', params: { id: 'jane' } }} style={styles.link}>
+    </View>
+    
+
+   
+    <Link to={{ screen: 'register' }} style={styles.link}>
       Register
     </Link>
     {loading&&<Text style={styles.loading}>loading...</Text>}
@@ -132,7 +134,8 @@ const styles = StyleSheet.create({
       borderWidth  : 1,
       borderRadius : 5,
       alignItems : "center",
-      justifyContent : "center"
+      justifyContent : "center",
+      
     },
     buttonText : {
       color : "white"  ,
@@ -141,7 +144,7 @@ const styles = StyleSheet.create({
     }, 
     buttonView :{
       width :"100%",
-      paddingHorizontal : 50
+      
     },
     optionsText : {
       textAlign : "center",

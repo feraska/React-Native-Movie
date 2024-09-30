@@ -38,14 +38,14 @@ const Settings = ()=> {
     // }
     return(
         <View style={styles.container}>
-            <Text>{user?.firstName}</Text>
-            <Text>{user?.lastName}</Text>
-            <Text>{user?.email}</Text>
+            <Text style={styles.text}>{user?.firstName}</Text>
+            <Text style={styles.text}>{user?.lastName}</Text>
+            <Text style={styles.text}>{user?.email}</Text>
             <Pressable onPress={logOut}>
                 <SimpleLineIcons
                 name="logout"
                 color="black"
-                size={22}
+                size={50}
                 />
             </Pressable>
         </View>
@@ -55,10 +55,14 @@ const styles = StyleSheet.create({
     container:{
         display:"flex",
         flexDirection:"column",
-        gap:10,
+        gap:20,
         justifyContent:"center",
         alignItems:"center",
         marginTop:30,
+    },
+    text: {
+        fontSize:24,
+        fontWeight:"bold"
     }
 })
 export default Settings
