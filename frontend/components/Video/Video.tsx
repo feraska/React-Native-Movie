@@ -22,16 +22,16 @@ import {
   import Octicons from 'react-native-vector-icons/Octicons';
   import AntDesign from "react-native-vector-icons/AntDesign"
   import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons"
-import { AuthContext } from '../../context/AuthContext';
 import usePut from '../../hooks/usePut';
 import { api } from '../../enums/api';
 import { actions } from '../../interfaces/auth';
-import {Video,ResizeMode} from "expo-av"
+// import {Video,ResizeMode} from "expo-av"
 import { card } from '../../interfaces/card';
-import { NavigationProp } from '@react-navigation/native';
-import { useDispatch } from 'react-redux';
+// import YoutubeIframe from 'react-native-youtube-iframe';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { addList, dislike, like, removeList } from '../../redux/slices/user';
+import useVideo from '../../hooks/useVideo';
+import YouTubePlayer from '../youtube/Youtube';
   
   interface movie {
     movieData:card
@@ -55,6 +55,9 @@ import { addList, dislike, like, removeList } from '../../redux/slices/user';
     const {put:addToLikes} = usePut(api.like)
     const {put:removeFromLikes} = usePut(`${api.dislike}`)
     const {put:remove} = usePut(`${api.removeFromList}`)
+    const {data,loading,error} = useVideo(`https://api.themoviedb.org/3/movie/${id}/videos`)
+    // const playerRef = useRef(null);
+    // console.log(data?.results[0])
     const removeMovie = async()=> {
       try {
           await remove({image:id})
@@ -91,6 +94,7 @@ import { addList, dislike, like, removeList } from '../../redux/slices/user';
       }
   }
  
+ 
     return (
     
       
@@ -104,15 +108,16 @@ import { addList, dislike, like, removeList } from '../../redux/slices/user';
                 uri: `https://image.tmdb.org/t/p/w500/${backdrop_path}`,
               }}
             />:
-              <Video 
-              source={{uri:"https://res.cloudinary.com/dpel2vfvq/video/upload/v1715930615/video_bie12o.mp4"}}
-               useNativeControls
-               isLooping
-              resizeMode={ResizeMode.COVER}
-               shouldPlay
+            <YouTubePlayer videoId={data?.results[0]?.key??""} />
+              // <Video 
+              // source={{uri:"https://res.cloudinary.com/dpel2vfvq/video/upload/v1715930615/video_bie12o.mp4"}}
+              //  useNativeControls
+              //  isLooping
+              // resizeMode={ResizeMode.COVER}
+              //  shouldPlay
                
-               style={{flex:1,alignSelf:"stretch",width:"auto",height: responsiveHeight(50),}}
-                />
+              //  style={{flex:1,alignSelf:"stretch",width:"auto",height: responsiveHeight(50),}}
+              //   />
           }
            
           {/* Second Container */}
@@ -272,6 +277,11 @@ import { addList, dislike, like, removeList } from '../../redux/slices/user';
   
   export default VideoPlayer;
   const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
     backgroundVideo: {
       position: 'absolute',
       top: 0,

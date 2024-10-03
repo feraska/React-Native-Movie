@@ -10,7 +10,7 @@ type RootStackParamList = {
   };
   
   type Props = NativeStackScreenProps<RootStackParamList>;
-const Home = ({navigation}) => {
+const Home = () => {
    
     useGlobal()
 

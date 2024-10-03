@@ -10,7 +10,7 @@ import { io } from "socket.io-client"
 import { useAppDispatch, useAppSelector } from "../redux/hooks"
 import { setGenre } from "../redux/slices/genre"
 import { addNotification, getNotification } from "../redux/slices/notification"
-import { getUser, login } from "../redux/slices/user"
+import { getSocket, getUser, login } from "../redux/slices/user"
 
 const useGlobal = () => {
     const genre = useAppSelector((state)=>state.genre.genre)
@@ -47,7 +47,8 @@ const useGlobal = () => {
         const socket = io("https://0tb1mjxb-9000.euw.devtunnels.ms/")
         socket?.on("connect",()=> {
             console.log("connected")
-            dispatch({type:actions.socket,payload:socket})
+            //dispatch({type:actions.socket,payload:socket})
+            dispatc(getSocket(socket))
         })
         socket?.on("sendMsg",(msg)=> {
             setMsg(msg)
@@ -58,6 +59,9 @@ const useGlobal = () => {
           socket.on("disconnect",()=> {
             console.log("disconnect")
         })
+        return()=> {
+            socketIo?.disconnect()
+        }
       
    // }
     },[User?._id])

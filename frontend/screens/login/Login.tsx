@@ -1,7 +1,7 @@
-import { Button, Pressable, SafeAreaView, StyleSheet, Text, TextInput, View } from "react-native"
+import { Pressable, SafeAreaView, StyleSheet, Text, TextInput, View } from "react-native"
 import useGlobal from "../../hooks/useGloabal"
-import { useContext, useEffect, useState } from "react"
-import {  AuthContext } from "../../context/AuthContext"
+import { useState } from "react"
+
 import { Link, useNavigation } from "@react-navigation/native"
 
 
@@ -17,7 +17,7 @@ import { login } from "../../redux/slices/user"
 const Login = () => {
     useGlobal()
     const navigation = useNavigation()
-    //const {state,dispatch} = useContext(AuthContext)
+ 
     const signin = useAppSelector((state)=>state.user.login)
     const dispatch = useAppDispatch()
     const [user,setUser] = useState({

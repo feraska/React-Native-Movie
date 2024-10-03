@@ -1,18 +1,16 @@
-import React ,{ useContext, useEffect } from "react"
-import { actions, AuthContext } from "../../context/AuthContext"
+import React  from "react"
 import { Pressable, StyleSheet, Text, View } from "react-native"
 import useGlobal from "../../hooks/useGloabal"
 import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons"
 import { useNavigation } from "@react-navigation/native"
-import AsyncStorage from "@react-native-async-storage/async-storage"
+
 import useDelete from "../../hooks/useDelete"
 import { api } from "../../enums/api"
-import Loading from "../../components/loading/Loading"
+
 import { useAppDispatch, useAppSelector } from "../../redux/hooks"
 import { logout } from "../../redux/slices/user"
 
 const Settings = ()=> {
-    const {state,dispatch} = useContext(AuthContext)
     const navigation = useNavigation()
     const {deletE} = useDelete(api.logoutMainServer)
     const login = useAppSelector((state)=>state.user.login)

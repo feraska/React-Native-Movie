@@ -1,13 +1,12 @@
-import { useContext } from "react"
-import { AuthContext } from "../../context/AuthContext"
+
 import useGlobal from "../../hooks/useGloabal"
-import Loading from "../../components/loading/Loading"
+
 import { ScrollView, StyleSheet, Text, View } from "react-native"
 import ListItem from "../../components/listItem/ListItem"
 import { useAppSelector } from "../../redux/hooks"
 
 const List = ()=> {
-    const {state} = useContext(AuthContext)
+   
     const user = useAppSelector((state)=>state.user.user)
     const login = useAppSelector((state)=>state.user.login)
    useGlobal()
