@@ -16,7 +16,7 @@ const Settings = ()=> {
     const login = useAppSelector((state)=>state.user.login)
     const user = useAppSelector((state)=>state.user.user)
     const dispach = useAppDispatch()
-    useGlobal()
+    //useGlobal()
     
     const logOut = async()=> {
        
@@ -54,13 +54,16 @@ const styles = StyleSheet.create({
         display:"flex",
         flexDirection:"column",
         gap:20,
-        justifyContent:"center",
+       
         alignItems:"center",
-        marginTop:30,
+        
+        backgroundColor:"black",
+        flex:1
     },
     text: {
         fontSize:24,
-        fontWeight:"bold"
+        fontWeight:"bold",
+        color:"white"
     }
 })
 export default Settings

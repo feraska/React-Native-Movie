@@ -1,16 +1,16 @@
-import React, { useEffect } from "react"
+import React from "react"
 import useApi from "../../hooks/useApi"
 import { FlatList, StyleSheet, View } from "react-native"
 import CardItem from "../cardItem/CardItem"
 const Cards:React.FC<{url:string,genre?:boolean}> = ({url,genre}) => {
-    const {data,getData} = useApi(url)
-    useEffect(()=> {
-        const get = async()=> {
-            getData()
-        }
-        get()
+    const {data} = useApi(url)
+    // useEffect(()=> {
+    //     const get = async()=> {
+    //         getData()
+    //     }
+    //     get()
 
-    },[])
+    // },[])
    
     return(
         < View style={styles.view}>

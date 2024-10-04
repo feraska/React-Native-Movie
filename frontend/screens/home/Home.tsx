@@ -1,18 +1,18 @@
 import React from "react"
 import {ScrollView, StatusBar, StyleSheet, View } from "react-native"
-import { NativeStackScreenProps } from "@react-navigation/native-stack"
+// import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import useGlobal from "../../hooks/useGloabal"
 
 import Cards from "../../components/cards/Cards"
-type RootStackParamList = {
-    home: undefined;
-    login:undefined
-  };
+// type RootStackParamList = {
+//     home: undefined;
+//     login:undefined
+//   };
   
-  type Props = NativeStackScreenProps<RootStackParamList>;
+  // type Props = NativeStackScreenProps<RootStackParamList>;
 const Home = () => {
    
-    useGlobal()
+  //  useGlobal()
 
     return(
       

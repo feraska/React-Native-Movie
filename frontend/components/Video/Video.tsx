@@ -10,7 +10,7 @@ import {
 
   } from 'react-native';
 
-  import React, {useContext, useRef, useState} from 'react';
+  import React, { useState} from 'react';
   import {
     responsiveFontSize,
     responsiveHeight,

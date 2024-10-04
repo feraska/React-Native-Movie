@@ -27,7 +27,7 @@ const Login = () => {
     const {post,message,loading} = usePost(api.loginMainServer)
     
     
-    useGlobal()
+   
  
      const handleChange = (value:string,name:string) => {
         setUser({...user,[name]:value})

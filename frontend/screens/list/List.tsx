@@ -8,8 +8,8 @@ import { useAppSelector } from "../../redux/hooks"
 const List = ()=> {
    
     const user = useAppSelector((state)=>state.user.user)
-    const login = useAppSelector((state)=>state.user.login)
-   useGlobal()
+    // const login = useAppSelector((state)=>state.user.login)
+   //useGlobal()
 //    if(login === 2) {
 //     return<Loading/>
 // }
@@ -32,20 +32,24 @@ const List = ()=> {
 }
 const styles = StyleSheet.create({
     list: {
-        flex:1,
-        marginTop: 50,
+        
+        
+        
         marginLeft:10,
         display: "flex",
         flexDirection: "column",
         alignItems:"center",
         gap: 20,
+        
     },
     text: {
         fontSize:32,
-        fontWeight:"bold"
+        fontWeight:"bold",
+        color:"white"
     },
     scrollContainer: {
         flex:1,
+        backgroundColor:"black"
         
         
     },
@@ -55,6 +59,7 @@ const styles = StyleSheet.create({
         flexDirection:"row",
         flexWrap:"wrap",
         gap:  20,
+       
     }
 })
 export default List

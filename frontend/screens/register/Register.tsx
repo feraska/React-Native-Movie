@@ -20,7 +20,7 @@ const Register = () => {
     const onBlur = () => {
       setColor("red")
     }
-    useGlobal()
+    //useGlobal()
     const handleChange = (value:string,name:string) => {
         setUser({...user,[name]:value})
         
@@ -65,6 +65,7 @@ const Register = () => {
       Login
     </Link>
     {loading&&<Text style={styles.loading}>loading...</Text>}
+    <Text >{message}</Text>
         </SafeAreaView>
 
     )
