@@ -42,7 +42,7 @@ const Settings = ()=> {
             <Pressable onPress={logOut}>
                 <SimpleLineIcons
                 name="logout"
-                color="black"
+                color="white"
                 size={50}
                 />
             </Pressable>
