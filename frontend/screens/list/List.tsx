@@ -35,10 +35,10 @@ const styles = StyleSheet.create({
         
         
         
-        marginLeft:10,
+       
         display: "flex",
         flexDirection: "column",
-        alignItems:"center",
+       
         gap: 20,
         
     },
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection:"row",
         flexWrap:"wrap",
-        gap:  20,
+        
        
     }
 })

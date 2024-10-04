@@ -73,13 +73,29 @@ const BottomContainer = () => {
   return (
     <Bottom.Navigator screenOptions={{tabBarStyle:{
       backgroundColor:"black",
-      borderColor:"white"
+      borderColor:"white",
+      minHeight:70,
+      
+      
+      
     }}}
     >
     <Bottom.Screen
       name="homes"
       component={Home}
       options={{headerTitle:"home",title:"home",headerStyle:{backgroundColor:"#000"},headerTitleStyle:{color:"#fff"},
+      tabBarItemStyle:{
+        display:"flex",
+        flexDirection:"column",
+        paddingVertical:10,
+        justifyContent:"space-evenly",
+        
+        
+        
+        
+      
+      
+      },
       headerRight:(props) =><Feather name='search' color={"white"} size={25} style={{marginRight:10}} onPress={handlePress}/>,
       tabBarIcon:({color,size,focused}) => {
         return(
@@ -102,6 +118,14 @@ const BottomContainer = () => {
       name="list"
       component={List}
       options={{headerTitle:"list",title:"list",headerStyle:{backgroundColor:"#000"},headerTitleStyle:{color:"#fff"},
+      tabBarItemStyle:{
+        display:"flex",
+        flexDirection:"column",
+        paddingVertical:10,
+        justifyContent:"space-evenly"
+      
+      
+      },
       headerRight:(props) =><Feather name='search' color={"white"} size={25} style={{marginRight:10}} onPress={handlePress}/>,
       tabBarIcon:({color,size,focused}) => {
         return(
@@ -121,6 +145,14 @@ const BottomContainer = () => {
       name="settings"
       component={Settings}
       options={{headerTitle:"settings",title:"settings",headerStyle:{backgroundColor:"#000"},headerTitleStyle:{color:"#fff"},
+      tabBarItemStyle:{
+        display:"flex",
+        flexDirection:"column",
+        paddingVertical:10,
+        justifyContent:"space-evenly"
+      
+      
+      },
       headerRight:(props) =><Feather name='search' color={"white"} size={25} style={{marginRight:10}} onPress={handlePress}/>,
            
       
