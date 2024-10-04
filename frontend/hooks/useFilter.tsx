@@ -2,7 +2,7 @@
 import {  useEffect, useState } from "react"
 
 import axios, { AxiosError } from "axios"
-import { play } from "@/interfaces/play"
+import { play } from "../interfaces/play"
 
 
 const useFilter = (url:string) => {
