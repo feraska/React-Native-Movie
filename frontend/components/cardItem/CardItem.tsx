@@ -27,9 +27,9 @@ const styles = StyleSheet.create({
    
     movieImg: {
        
-      width: 105,
+      width: 100,
       margin: 10,
-      height: 152,
+      height: 100,
       borderRadius: 6,
       resizeMode: "cover",
           }

@@ -1,13 +1,16 @@
 import { Link } from "@react-navigation/native"
 import { Pressable, SafeAreaView, StyleSheet, Text, TextInput, View } from "react-native"
 import usePost from "../../hooks/usePost"
-import useGlobal from "../../hooks/useGloabal"
+// import useGlobal from "../../hooks/useGloabal"
 import { api } from "../../enums/api"
 import { useState } from "react"
+import { errorMsg } from "../../interfaces/message"
+import Loading from "../../components/loading/Loading"
 
 const Register = () => {
     const [color,setColor] = useState("red")
-    const {post,message,loading} = usePost(api.registerMainServer)
+    const {post,message,loading,error} = usePost(api.registerMainServer)
+    const [messageError,setMessageError] = useState<errorMsg>()
     const [user,setUser] = useState({
         "email":"",
         "password":"",
@@ -32,10 +35,18 @@ const Register = () => {
             
            
         } catch(err) {
-         
+          const m = (err as Error)
+          const s = JSON.parse(m.message)  
+          const t:errorMsg = (s  as errorMsg)
+          setMessageError(t)
            
         }
         
+   }
+   if(loading) {
+    return (
+      <Loading/>
+    )
    }
    const s = {
     borderColor:color
@@ -56,6 +67,7 @@ const Register = () => {
         <Pressable style={styles.button} onPress={handleRegister}>
             <Text style={styles.buttonText}>REGISTER</Text>
         </Pressable>
+        <Text>{error&&messageError?.message}</Text>
     </View>
     </View>
     
@@ -64,8 +76,7 @@ const Register = () => {
     <Link to={{ screen: 'login' }} style={styles.link}>
       Login
     </Link>
-    {loading&&<Text style={styles.loading}>loading...</Text>}
-    <Text >{message}</Text>
+    
         </SafeAreaView>
 
     )

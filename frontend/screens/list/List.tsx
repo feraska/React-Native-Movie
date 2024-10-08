@@ -1,44 +1,52 @@
 
-import useGlobal from "../../hooks/useGloabal"
 
-import { ScrollView, StyleSheet, Text, View } from "react-native"
+import { Dimensions, FlatList, ScrollView, StyleSheet, Text, View } from "react-native"
 import ListItem from "../../components/listItem/ListItem"
 import { useAppSelector } from "../../redux/hooks"
+import { Key, useEffect, useState } from "react"
+import useFlatList from "../../hooks/useFlatList"
+import useGlobal from "../../hooks/useGloabal"
 
 const List = ()=> {
    
     const user = useAppSelector((state)=>state.user.user)
-    // const login = useAppSelector((state)=>state.user.login)
-   //useGlobal()
-//    if(login === 2) {
-//     return<Loading/>
-// }
-
+    const {numColumns} = useFlatList()
+    useGlobal()
     return(
-    <ScrollView style={styles.scrollContainer}>
+    // <ScrollView style={styles.scrollContainer}>
        <View style={styles.list}>
         
             <Text style={styles.text}>My List</Text>
-            <View style={styles.ul}>
+            {/* <View style={styles.ul}>
             {user?.list?.map((id,i)=>(
                <ListItem id={id} key={i}/>
             ))}
-            </View>
+            </View> */}
+            
+             <FlatList
+        data={user?.list}
+        renderItem={({item})=><ListItem id={item}/>}
+        keyExtractor={(item, index) => index.toString()}
+        numColumns={numColumns}
+        key={`grid-${numColumns}`} // Unique key prop to trigger re-render
+        // onEndReached={loadMoreItems} // Trigger when the user scrolls to the end
+        onEndReachedThreshold={0.5}  // Adjust the threshold for when to trigger (0.5 means halfway down)
+        // ListFooterComponent={loading ? <ActivityIndicator size="large" color="#0000ff" /> : null} // Show loader while loading
+      />
+      </View>
            
         
-        </View>
-        </ScrollView>
+      
+        // </ScrollView>
     )
 }
 const styles = StyleSheet.create({
     list: {
-        
-        
-        
-       
+        paddingHorizontal:20,
         display: "flex",
         flexDirection: "column",
-       
+        backgroundColor:"black",
+        flex:1,
         gap: 20,
         
     },
@@ -53,11 +61,16 @@ const styles = StyleSheet.create({
         
         
     },
+    container: {
+    flex: 1,
+    paddingTop: 50,
+    },
     ul: {
         
         display: "flex",
         flexDirection:"row",
         flexWrap:"wrap",
+        gap:15
         
        
     }

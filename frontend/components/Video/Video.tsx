@@ -32,10 +32,9 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { addList, dislike, like, removeList } from '../../redux/slices/user';
 import useVideo from '../../hooks/useVideo';
 import YouTubePlayer from '../youtube/Youtube';
+import Loader from '../loader/Loader';
   
-  interface movie {
-    movieData:card
-  }
+ 
   const VideoPlayer = ({route}) => {
    
     const {
@@ -56,30 +55,36 @@ import YouTubePlayer from '../youtube/Youtube';
     const {put:removeFromLikes} = usePut(`${api.dislike}`)
     const {put:remove} = usePut(`${api.removeFromList}`)
     const {data,loading,error} = useVideo(`https://api.themoviedb.org/3/movie/${id}/videos`)
+    const [loadingList,setLoadingList] = useState(false)
+    const [loadingLike,setLoadingLike] = useState(false)
     // const playerRef = useRef(null);
     // console.log(data?.results[0])
     const removeMovie = async()=> {
       try {
-          await remove({image:id})
+        setLoadingList(true)
+        await remove({image:id})
       // dispatch({type:actions.remove_list,payload:id})
       dispatch(removeList(id))
+      setLoadingList(false)
       } catch(err) {
           console.log(err)
       }
   }
   const addHandler = async() => {
       try {
-      await put({image:id})
+        setLoadingList(true)
+        await put({image:id})
       
       //dispatch({type:actions.add_list,payload:id})
       dispatch(addList(id))
-      
+      setLoadingList(false)
       } catch(err) {
           console.log(err)
       }
   }
   const likeHandler = async(action:string) => {
       try {
+        setLoadingLike(true)
           if(action === actions.like) {
               await addToLikes({image:id})
               // dispatch({type:actions.like,payload:id})
@@ -89,6 +94,7 @@ import YouTubePlayer from '../youtube/Youtube';
               // dispatch({type:actions.dislike,payload:id})
               dispatch(dislike(id))
           }
+          setLoadingLike(false)
       } catch(err) {
           console.log(err)
       }
@@ -195,7 +201,7 @@ import YouTubePlayer from '../youtube/Youtube';
               <Octicons
                 style={{marginRight: 5}}
                 name="download"
-                size={22}
+                size={25}
                 color="white"
               />
               <Text
@@ -213,12 +219,13 @@ import YouTubePlayer from '../youtube/Youtube';
             <View style={{display:"flex",flexDirection:"row",gap:10}}>
             
               {
+                !loadingList?
               !user?.list.includes(id)? 
               <Pressable onPress={addHandler}>
               <AntDesign 
               name="plus"
               color="white"
-              size={22}
+              size={25}
               />
                </Pressable>
               :
@@ -226,21 +233,23 @@ import YouTubePlayer from '../youtube/Youtube';
               <AntDesign
               name="minus"
               color="white"
-              size={22}
+              size={25}
               />
               </Pressable>
+              :<Loader/>
               }
             
               
              
 
              {
+              !loadingLike?
              !user?.likes.includes(id)?
              <Pressable onPress={()=>likeHandler("like")}>
               <SimpleLineIcons 
               name="like"
               color="white"
-              size={22}
+              size={25}
               />
               </Pressable>
               :
@@ -248,9 +257,10 @@ import YouTubePlayer from '../youtube/Youtube';
               <SimpleLineIcons
               name="dislike"
               color="white"
-              size={22}
+              size={25}
               />
               </Pressable>
+              :<Loader/>
             }
               
 

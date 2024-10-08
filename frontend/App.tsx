@@ -1,10 +1,10 @@
 
 import { StatusBar } from "expo-status-bar";
-import { AppRegistry, StyleSheet, Text, View } from "react-native";
-import StackNavigator from "./StackNavigator";
+import { StyleSheet } from "react-native";
+// import StackNavigator from "./StackNavigator";
 
-import MyBottom from "./BottomStackNavigator";
-import { useContext, useEffect, useState } from "react";
+// import MyBottom from "./BottomStackNavigator";
+import { useEffect } from "react";
 import MyStack from "./StackNavigator";
 import StoreProvider from "./StoreProvider";
 //import * as SystemUI from 'expo-system-ui'; // Import SystemUI
@@ -28,13 +28,13 @@ export default function App() {
   
   return (
     
-      // <AuthContextProvider>
+    
       <StoreProvider>
           <MyStack/>
          
           <StatusBar style="light" />
           </StoreProvider>
-          // </AuthContextProvider>
+          
   
   );
 }

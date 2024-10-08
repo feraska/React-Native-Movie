@@ -13,18 +13,19 @@ import { api } from "../../enums/api"
 import Loading from "../../components/loading/Loading"
 import { useAppDispatch, useAppSelector } from "../../redux/hooks"
 import { login } from "../../redux/slices/user"
+import { errorMsg } from "../../interfaces/message"
 
 const Login = () => {
     useGlobal()
     const navigation = useNavigation()
- 
+    const [messageError,setMessageError] = useState<errorMsg>()
     const signin = useAppSelector((state)=>state.user.login)
     const dispatch = useAppDispatch()
     const [user,setUser] = useState({
         "email":"",
         "password":""
     })
-    const {post,message,loading} = usePost(api.loginMainServer)
+    const {post,message,loading,error} = usePost(api.loginMainServer)
     
     
    
@@ -39,25 +40,26 @@ const Login = () => {
              await post(user)
              //dispatch({type:actions.login})
              dispatch(login(1))
-             navigation.navigate("home")
+             //navigation.navigate("home")
              
             
          } catch(err) {
-          
+          const m = (err as Error)
+          const s = JSON.parse(m.message)  
+          const t:errorMsg = (s  as errorMsg)
+          setMessageError(t)
             
          }
          
     }
    
 
-    if(signin === 1) {
-      navigation.navigate("home")
-      return
-    }
+  
     
-    if(signin === 2) {
+    if( loading)  {
       return <Loading/>
   }
+ 
 
  
     
@@ -74,6 +76,7 @@ const Login = () => {
         <Pressable disabled={loading} style={styles.button} onPress={handleLogin}>
             <Text  style={styles.buttonText}>LOGIN</Text>
         </Pressable>
+        <Text style={{color:"white",fontSize:16}}>{error&&messageError?.message}</Text>
     </View>
     </View>
     
@@ -82,7 +85,7 @@ const Login = () => {
     <Link to={{ screen: 'register' }} style={styles.link}>
       Register
     </Link>
-    {loading&&<Text style={styles.loading}>loading...</Text>}
+    {/* {loading&&<Text style={styles.loading}>loading...</Text>} */}
         </SafeAreaView>
 
     )
