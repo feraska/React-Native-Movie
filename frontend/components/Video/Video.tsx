@@ -7,6 +7,8 @@ import {
     View,
     TouchableOpacity,
     Pressable,
+    Modal,
+    SafeAreaView,
 
   } from 'react-native';
 
@@ -26,13 +28,17 @@ import usePut from '../../hooks/usePut';
 import { api } from '../../enums/api';
 import { actions } from '../../interfaces/auth';
 // import {Video,ResizeMode} from "expo-av"
-import { card } from '../../interfaces/card';
+// import { card } from '../../interfaces/card';
 // import YoutubeIframe from 'react-native-youtube-iframe';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { addList, dislike, like, removeList } from '../../redux/slices/user';
 import useVideo from '../../hooks/useVideo';
 import YouTubePlayer from '../youtube/Youtube';
 import Loader from '../loader/Loader';
+
+import DraggableModal from '../modal/Modal';
+import { card } from '../../interfaces/card';
+
   
  
   const VideoPlayer = ({route}) => {
@@ -46,6 +52,7 @@ import Loader from '../loader/Loader';
       backdrop_path,
       vote_count,
     } = route.params.movieData;
+    const card:card = route.params.movieData;
     const dispatch = useAppDispatch()
     const user = useAppSelector((state)=>state.user.user)
     const [isVideoVisible, setisVideoVisible] = useState(false);
@@ -57,6 +64,13 @@ import Loader from '../loader/Loader';
     const {data,loading,error} = useVideo(`https://api.themoviedb.org/3/movie/${id}/videos`)
     const [loadingList,setLoadingList] = useState(false)
     const [loadingLike,setLoadingLike] = useState(false)
+    const [modalIsVisible, setIsVisible] = useState(false);
+    const openModal = () => {
+      setIsVisible(true)
+    }
+    const onClose = () => {
+      setIsVisible(false)
+    }
     // const playerRef = useRef(null);
     // console.log(data?.results[0])
     const removeMovie = async()=> {
@@ -107,7 +121,9 @@ import Loader from '../loader/Loader';
       <View style={styles.mainContainer}>
         
         <StatusBar backgroundColor={'#080508'} />
+        
         <ScrollView style={styles.scrollContainer}>
+          <DraggableModal props={{modalIsVisible,onClose,card}}/>
           {!isVideoVisible? <Image
               style={styles.firstContainer}
               source={{
@@ -262,6 +278,7 @@ import Loader from '../loader/Loader';
               </Pressable>
               :<Loader/>
             }
+            <Entypo name='share' size={25} color={"white"} onPress={openModal}/>
               
 
              
@@ -291,6 +308,7 @@ import Loader from '../loader/Loader';
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
+     
     },
     backgroundVideo: {
       position: 'absolute',
