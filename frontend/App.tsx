@@ -10,6 +10,7 @@ import StoreProvider from "./StoreProvider";
 //import * as SystemUI from 'expo-system-ui'; // Import SystemUI
 import * as NavigationBar from 'expo-navigation-bar';
 
+
 export default function App() {
   useEffect(() => {
     // Change the background color of the phone's bottom navigation bar to black
@@ -28,12 +29,12 @@ export default function App() {
   
   return (
     
-    
       <StoreProvider>
           <MyStack/>
          
           <StatusBar style="light" />
           </StoreProvider>
+      
           
   
   );

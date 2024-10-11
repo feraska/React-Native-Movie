@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Alert, Image, Linking, PanResponder, Pressable, Share, StyleSheet, Text, View } from "react-native";
+import { Alert, Animated, Dimensions, Image, Linking, PanResponder, Pressable, Share, StyleSheet, Text, View } from "react-native";
 import Modal from "react-native-modal";
 import AntDesign from "react-native-vector-icons/AntDesign"
 import Feather from "react-native-vector-icons/Feather"
 import { card } from "../../interfaces/card";
 import { TouchableOpacity } from "react-native";
+
 interface props {
     modalIsVisible:boolean,
     onClose:()=>void,
@@ -12,8 +13,9 @@ interface props {
 }
 const DragModal:React.FC<{props:props}> = ({props}) => {
     const {modalIsVisible,onClose,card} = props
-    const [translateY, setTranslateY] = useState(0);
+    
     const url = "netflix-deploy-feraskas-projects.vercel.app"
+    
     const onShare = async () => {
         
         const message = `https://netflix-deploy-feraskas-projects.vercel.app/search?q=${card.title}`;
@@ -39,52 +41,37 @@ const DragModal:React.FC<{props:props}> = ({props}) => {
           Alert.alert('Error:', error.message);
         }
       };
-    const sendToWhatsApp = async () => {
+    // const sendToWhatsApp = async () => {
         
-        const message = `${`https://netflix-deploy-feraskas-projects.vercel.app/search?q=${card.title}`}`;
-        const whatsappUrl = ` https://wa.me/?text=${message}`;
+    //     const message = `${`https://netflix-deploy-feraskas-projects.vercel.app/search?q=${card.title}`}`;
+    //     const whatsappUrl = ` https://wa.me/?text=${message}`;
         
-        try {
-          const supported = await Linking.canOpenURL(whatsappUrl);
-          console.log(supported)
-          if (supported) {
-            await Linking.openURL(whatsappUrl);
-          } else {
-            Alert.alert('WhatsApp is not installed on this device');
-          }
-        } catch (error) {
-          console.error('Error opening WhatsApp:', error);
-          Alert.alert('Failed to open WhatsApp');
-        }
-      };
-    // const panResponder = PanResponder.create({
-    //     onMoveShouldSetPanResponder: (evt, gestureState) => {
-    //        // console.log(gestureState.dy)
-    //       // Allow dragging only if the user is moving down
-    //       return gestureState.dy < 5;
-    //     },
-    //     onPanResponderMove: (evt, gestureState) => {
-    //         //console.log("OK")
-    //       // Update the position of the modal as it's dragged
-    //       setTranslateY(Math.max(0, gestureState.dy)); // Prevent negative drag
-    //     },
-    //     onPanResponderRelease: (evt, gestureState) => {
-    //         //console.log("AA")
-    //       // Close the modal if dragged down sufficiently
-    //       if (gestureState.dy <= 0) {
-    //         onClose()
+    //     try {
+    //       const supported = await Linking.canOpenURL(whatsappUrl);
+    //       console.log(supported)
+    //       if (supported) {
+    //         await Linking.openURL(whatsappUrl);
     //       } else {
-    //         setTranslateY(0); // Reset position if not dragged down sufficiently
+    //         Alert.alert('WhatsApp is not installed on this device');
     //       }
-    //     },
-    //   });
+    //     } catch (error) {
+    //       console.error('Error opening WhatsApp:', error);
+    //       Alert.alert('Failed to open WhatsApp');
+    //     }
+    //   };
+  
+  
+    
+     
     return (
       
-        
-        <Modal isVisible={modalIsVisible} swipeDirection="down" style={styles.modal} onBackdropPress={onClose} animationIn={"bounce"}>
-            <View style={styles.box}
+      <View style={styles.container}>
+        <Modal isVisible={modalIsVisible} animationIn={"fadeIn"} swipeDirection={"down"} onSwipeComplete={onClose}  propagateSwipe={true}  style={styles.modal} onBackdropPress={onClose} >
+         
+            <View style={ [styles.box] }
           
             >
+         
                 <TouchableOpacity style={styles.close} onPress={onClose}>
                     <AntDesign name="closecircle" size={25} color={"white"} />
                 </TouchableOpacity>
@@ -113,11 +100,17 @@ const DragModal:React.FC<{props:props}> = ({props}) => {
           </View>
        
         </Modal>
+        </View>
        
        
     )
 }
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
     content: {
         display:"flex",
         flexDirection:"column",
@@ -168,6 +161,7 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
         padding: 20,
+        
         
         backgroundColor:"black",
         
