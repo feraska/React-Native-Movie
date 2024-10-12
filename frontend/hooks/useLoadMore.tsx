@@ -4,7 +4,7 @@ import axios, { AxiosError } from "axios"
 
 import React, { useEffect, useState } from "react"
 
-const useLoadMore = (url:string,page:number,setPage:React.Dispatch<React.SetStateAction<number>>,movie:string) => {
+const useLoadMore = (url:string,page:number,setPage:React.Dispatch<React.SetStateAction<number>>,movie?:string,sort?:string,lang?:string) => {
     const [data,setData] = useState<card[]>([])
     const [error,setError] = useState("")
     const [loading,setloading] = useState(false)
@@ -14,7 +14,7 @@ const useLoadMore = (url:string,page:number,setPage:React.Dispatch<React.SetStat
     useEffect(()=> {
         setPage(1)
         setInit(0)
-    },[movie])
+    },[movie,sort,lang])
     useEffect(()=> {
         const getData = async() => {
             try {

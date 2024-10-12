@@ -7,5 +7,6 @@ export type RootStackParamList = {
     VideoPlayer:undefined,
     list:undefined,
     settings:undefined,
-    search:undefined
+    search:undefined,
+    languages:undefined
   };

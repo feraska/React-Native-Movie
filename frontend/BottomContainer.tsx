@@ -13,6 +13,7 @@ import Settings from './screens/settings/Settings';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo'
 import Feather from "react-native-vector-icons/Feather"
+import Languages from "./screens/languages/Languages";
 
 
 const BottomContainer = () => {
@@ -119,6 +120,41 @@ const BottomContainer = () => {
           )
         }
         }}
+
+        
+      
+       
+        />
+
+
+<Bottom.Screen
+        name="languages"
+        component={Languages}
+        options={{headerTitle:"languages",title:"languages",headerStyle:{backgroundColor:"#000"},headerTitleStyle:{color:"#fff"},
+        tabBarItemStyle:{
+          display:"flex",
+          flexDirection:"column",
+          paddingVertical:10,
+          justifyContent:"space-evenly"
+        
+        
+        },
+        headerRight:(props) =><Feather name='search' color={"white"} size={25} style={{marginRight:10}} onPress={handlePress}/>,
+             
+        
+        tabBarIcon:({color,size,focused}) => {
+          return(
+          <Feather name='droplet' size={25} color={"white"}/>
+          )
+        },
+        tabBarLabel:({children,color,focused,position})=> {
+          return (
+            <Text style={{color:!focused?"white":"red"}}>{"Languages"}</Text>
+          )
+        }
+        }}
+
+        
       
        
         />
